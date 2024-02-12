@@ -13,7 +13,7 @@ int main() {
 
   // Gravity (Pixels/s)/s
   const int Gravity = 1000;
-  const int jumpVal = -100;
+  const int jumpVal = -500;
 
   // Nebula Variables
   Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
@@ -34,14 +34,19 @@ int main() {
   scarfyPos.x = static_cast<float>(WindowWidth) / 2 - scarfyRec.width / 2;
   scarfyPos.y = static_cast<float>(WindowHeight) - scarfyRec.height;
 
-  // Animation Frame 
+  // Scarfy Animation Frame 
   int frame = 0;
 
   bool isInAir = false;
 
-  // Amount of Time Before We Update the Animation Frame
-  const float updateTime = 1.0f / 15.0f;
+  // Amount of Time Before We Update the Scarfy Animation Frame
+  const float updateTime = 1.0f / 12.0f;
   float runningTime = 0.0f;
+  
+  // Amount of Time Before We Update the Nebula Animation frame
+  const float NebUpdateTime = 1.0f / 12.0f;
+  float nebRunningTime;
+  int NebulaFrame{0};
 
   SetTargetFPS(60);
   while (!WindowShouldClose()) {
@@ -75,6 +80,7 @@ int main() {
     // Update Scarfy Position
     scarfyPos.y += velocity * dT;
 
+    // Update Scarfy Animation Frame
     if (!isInAir) {
       // Update Running Time 
       runningTime += dT;
@@ -88,6 +94,19 @@ int main() {
         if (frame > 5) {
           frame = 0;
         }
+      }
+    }
+
+    // Update Nebula Animation Frame 
+    nebRunningTime += dT;
+    if (nebRunningTime >= NebUpdateTime) {
+      nebRunningTime = 0.0f;
+
+      nebRec.x = NebulaFrame * nebRec.width;
+      NebulaFrame ++;
+
+      if (NebulaFrame > 7) {
+          NebulaFrame = 0;
       }
     }
 
