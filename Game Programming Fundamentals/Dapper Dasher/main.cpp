@@ -20,8 +20,11 @@ int main() {
   Rectangle nebRec = {0.0f, 0.0f, static_cast<float>(nebula.width) / 8, static_cast<float>(nebula.height) / 8};
   Vector2 nebPos = {static_cast<float>(WindowWidth), static_cast<float>(WindowHeight) - nebRec.height};
 
+  Rectangle neb2Rec = {0.0f, 0.0f, static_cast<float>(nebula.width) / 8, static_cast<float>(nebula.height) / 8};
+  Vector2 neb2Pos = {static_cast<float>(WindowWidth + 300), static_cast<float>(WindowHeight) - nebRec.height};
+
   // Nebula X velocity (pixels/s)
-  int nebVel = -600;
+  int nebVel = -500;
 
   // Scarfy Variables
   Texture2D scarfy = LoadTexture("textures/scarfy.png");
@@ -46,7 +49,11 @@ int main() {
   // Amount of Time Before We Update the Nebula Animation frame
   const float NebUpdateTime = 1.0f / 12.0f;
   float nebRunningTime;
-  int NebulaFrame{0};
+  int NebulaFrame{};
+
+  const float Neb2UpdateTime = 1.0f / 16.0f;
+  float neb2RunningTime;
+  int Nebula2Frame{};
 
   SetTargetFPS(60);
   while (!WindowShouldClose()) {
@@ -76,6 +83,9 @@ int main() {
 
     // Update Nebula Position
     nebPos.x += nebVel * dT;
+
+    // Update the Second Nebula's Position
+    neb2Pos.x += nebVel * dT;
 
     // Update Scarfy Position
     scarfyPos.y += velocity * dT;
@@ -110,8 +120,25 @@ int main() {
       }
     }
 
+    // Update Nebula2 Animation Frame 
+    neb2RunningTime += dT;
+    if (neb2RunningTime >= Neb2UpdateTime) {
+      neb2RunningTime = 0.0f;
+
+      neb2Rec.x = Nebula2Frame * neb2Rec.width;
+      Nebula2Frame ++;
+
+      if (Nebula2Frame > 7) {
+          Nebula2Frame = 0;
+      }
+    }
+
+
     // Draw Nebula
     DrawTextureRec(nebula, nebRec, nebPos, WHITE);
+
+    //Draw Nebula2
+    DrawTextureRec(nebula, neb2Rec, neb2Pos, PURPLE);
 
     // Draw Scarfy
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
