@@ -39,6 +39,9 @@ int main() {
 
     int velocity = 0;
 
+    Texture2D background = LoadTexture("textures/far-buildings.png");
+    float bgX{};
+
     // Gravity (Pixels/s)/s
     const int Gravity = 2300;
     const int jumpVal = -650;
@@ -92,6 +95,17 @@ int main() {
         // Delta Time (time since last frame)
         float dT = GetFrameTime();
 
+        bgX -= 20 * dT;
+        if(bgX <= -background.width*9) {
+          bgX = 0.0;
+        }
+
+        // Draw the background
+        Vector2 big1Pos{bgX, 0.0f};
+        DrawTextureEx(background, big1Pos, 0.0f, 9.0f, WHITE);
+        Vector2 big2Pos{bgX + background.width*9, 0.0};
+        DrawTextureEx(background, big2Pos, 0.0, 9.0f, WHITE);
+
         // Ground Check
         if (isOnGround(scarfyData, WindowHeight)) {
             // Rectangle is On The Ground
@@ -123,16 +137,9 @@ int main() {
         }
 
         // Update Nebulae Animation Frames
-        for (int i = 0; i < sizeOFNebulae; ++i) {
-            nebulae[i].runningTime += dT;
-            if (nebulae[i].runningTime >= nebulae[i].updateTime) {
-                nebulae[i].runningTime = 0.0f;
-                nebulae[i].rec.x = nebulae[i].frame * nebulae[i].rec.width;
-                nebulae[i].frame++;
-                if (nebulae[i].frame > 7) {
-                    nebulae[i].frame = 0;
-                }
-            }
+        for (int i = 0; i < sizeOFNebulae; ++i)
+        {
+          nebulae[i] = updateAnimData(nebulae[i], dT, 7);
         }
 
         Color color[3]{WHITE, PURPLE, ORANGE};
@@ -151,6 +158,7 @@ int main() {
 
     UnloadTexture(scarfy);
     UnloadTexture(nebula);
+    UnloadTexture(background);
 
     CloseWindow();
 
