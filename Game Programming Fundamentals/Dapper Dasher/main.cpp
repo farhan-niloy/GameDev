@@ -25,6 +25,7 @@ AnimData updateAnimData(AnimData data, float deltaTime, int maxFrame)
       data.frame = 0;
     }
   }
+  return data;
 }
 
 int main() {
@@ -39,8 +40,8 @@ int main() {
     int velocity = 0;
 
     // Gravity (Pixels/s)/s
-    const int Gravity = 2000;
-    const int jumpVal = -700;
+    const int Gravity = 2300;
+    const int jumpVal = -650;
 
     // Nebula Variables
     Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
