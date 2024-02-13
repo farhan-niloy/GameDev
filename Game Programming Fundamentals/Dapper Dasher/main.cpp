@@ -8,6 +8,25 @@ struct AnimData {
     float runningTime;
 }; 
 
+bool isOnGround(AnimData data, int windowHeight) {
+  return data.pos.y >= windowHeight - data.rec.height;
+}
+
+AnimData updateAnimData(AnimData data, float deltaTime, int maxFrame)
+{
+  // Update running Time
+  data.runningTime += deltaTime;
+  if (data.runningTime >= data.updateTime){
+    data.runningTime = 0.0;
+    // update Animation frame
+    data.rec.x = data.frame * data.rec.width;
+    data.frame++;
+    if(data.frame > maxFrame) {
+      data.frame = 0;
+    }
+  }
+}
+
 int main() {
 
     // Window Dimensions
@@ -43,7 +62,7 @@ int main() {
     scarfyData.runningTime = 0.0f;
 
     // AnimData
-    const int sizeOFNebulae{10};
+    const int sizeOFNebulae{100};
     AnimData nebulae[sizeOFNebulae]{};
 
     // Initialize Nebulae
@@ -65,7 +84,7 @@ int main() {
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
 
-        // Start Drawing
+        // Start Drawing:
         BeginDrawing();
         ClearBackground(WHITE);
 
@@ -73,7 +92,7 @@ int main() {
         float dT = GetFrameTime();
 
         // Ground Check
-        if (scarfyData.pos.y >= WindowHeight - scarfyData.rec.height) {
+        if (isOnGround(scarfyData, WindowHeight)) {
             // Rectangle is On The Ground
             isInAir = false;
             velocity = 0;
@@ -97,20 +116,9 @@ int main() {
         scarfyData.pos.y += velocity * dT;
 
         // Update Scarfy Animation Frame
-        if (!isInAir) {
-            // Update Running Time
-            scarfyData.runningTime += dT;
-
-            if (scarfyData.runningTime >= scarfyData.updateTime) {
-                scarfyData.runningTime = 0.0f;
-
-                // Update Animation Frame
-                scarfyData.rec.x = scarfyData.frame * scarfyData.rec.width;
-                scarfyData.frame++;
-                if (scarfyData.frame > 5) {
-                    scarfyData.frame = 0;
-                }
-            }
+        if (!isInAir) 
+        {
+          scarfyData = updateAnimData(scarfyData, dT, 5);
         }
 
         // Update Nebulae Animation Frames
@@ -126,7 +134,7 @@ int main() {
             }
         }
 
-        Color color[3]{WHITE, PURPLE, ORANGE, RED, BLUE, YELLOW};
+        Color color[3]{WHITE, PURPLE, ORANGE};
 
         // Draw Nebulae
         for (int i = 0; i < sizeOFNebulae; ++i) {
