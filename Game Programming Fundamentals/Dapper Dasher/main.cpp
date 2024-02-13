@@ -1,4 +1,3 @@
-
 #include "../include/raylib.h"
 
 struct AnimData {
@@ -7,7 +6,7 @@ struct AnimData {
     int frame;
     float updateTime;
     float runningTime;
-}; // Don't forget the semicolon to end the struct definition
+}; 
 
 int main() {
 
@@ -43,19 +42,23 @@ int main() {
     scarfyData.updateTime = 1.0f / 12.0f;
     scarfyData.runningTime = 0.0f;
 
-    // AnimData for Nebulae
-    AnimData nebulae[2]{
-            { {0.0f, 0.0f, static_cast<float>(nebula.width) / 8, static_cast<float>(nebula.height) / 8},
-              {static_cast<float>(WindowWidth), static_cast<float>(WindowHeight) - static_cast<float>(nebula.height) / 8},
-              0, // int frame
-              1.0f / 16.0f, // float updateTime
-              0 }, //float runningTime
-            { {0.0f, 0.0f, static_cast<float>(nebula.width) / 8, static_cast<float>(nebula.height) / 8},
-              {static_cast<float>(WindowWidth + 300), static_cast<float>(WindowHeight) - static_cast<float>(nebula.height) / 8},
-              0, // int frame
-              1.0f / 12.0f, // float updateTime
-              0 } //float runningTime
-    };
+    // AnimData
+    const int sizeOFNebulae{10};
+    AnimData nebulae[sizeOFNebulae]{};
+
+    // Initialize Nebulae
+    for (int i = 0; i < sizeOFNebulae; ++i)
+{
+    nebulae[i].rec.x = 0.0f;
+    nebulae[i].rec.y = 0.0f;
+    nebulae[i].rec.width = static_cast<float>(nebula.width) / 8;
+    nebulae[i].rec.height = static_cast<float>(nebula.height) / 8;
+    nebulae[i].pos.y = static_cast<float>(WindowHeight) - static_cast<float>(nebula.height) / 8;
+    nebulae[i].frame = 0;
+    nebulae[i].runningTime = 0.0f;
+    nebulae[i].updateTime = 1.0f / 16.0f;
+    nebulae[i].pos.x = static_cast<float>(WindowWidth) + i * 300;
+}
 
     bool isInAir = false;
 
@@ -86,8 +89,9 @@ int main() {
         }
 
         // Update Nebula Positions
-        nebulae[0].pos.x += nebVel * dT;
-        nebulae[1].pos.x += nebVel * dT;
+        for(int i = 0; i < sizeOFNebulae; i++) {
+          nebulae[i].pos.x += nebVel * dT;
+        }
 
         // Update Scarfy Position
         scarfyData.pos.y += velocity * dT;
@@ -110,7 +114,7 @@ int main() {
         }
 
         // Update Nebulae Animation Frames
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < sizeOFNebulae; ++i) {
             nebulae[i].runningTime += dT;
             if (nebulae[i].runningTime >= nebulae[i].updateTime) {
                 nebulae[i].runningTime = 0.0f;
@@ -122,10 +126,10 @@ int main() {
             }
         }
 
-        Color color[2]{WHITE, PURPLE};
+        Color color[3]{WHITE, PURPLE, ORANGE, RED, BLUE, YELLOW};
 
         // Draw Nebulae
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < sizeOFNebulae; ++i) {
             DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, color[i]);
         }
 
