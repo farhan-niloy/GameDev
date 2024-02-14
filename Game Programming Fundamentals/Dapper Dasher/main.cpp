@@ -53,7 +53,7 @@ int main() {
     Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
 
     // Nebula X velocity (pixels/s)
-    int nebVel = -500;
+    int nebVel = -600;
 
     // Scarfy Variables
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
