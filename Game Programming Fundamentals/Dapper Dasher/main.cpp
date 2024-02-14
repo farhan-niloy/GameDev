@@ -82,7 +82,7 @@ int main() {
         nebulae[i].frame = 0;
         nebulae[i].runningTime = 0.0f;
         nebulae[i].updateTime = 1.0f / 16.0f;
-        nebulae[i].pos.x = static_cast<float>(WindowWidth) + i * 300;
+        nebulae[i].pos.x = static_cast<float>(WindowWidth) + i * 500;
     }
 
     float finishLine = nebulae[sizeOFNebulae - 1].pos.x;
