@@ -189,8 +189,9 @@ int main() {
 
         // Draw Nebulae and Scarfy if no collision
         if (collision) {
-
-
+          Drawtext("Game Over!", width/4, height/2, 60, RED);
+        } else if (scarfyData.Pos.x >= finishLine) {
+          DrawText("YOU WIN!", windth/4, height/2, 60, RED);
         } else {
             // Draw Nebulae
             for (int i = 0; i < sizeOFNebulae; ++i) {
