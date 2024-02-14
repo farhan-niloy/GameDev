@@ -40,7 +40,11 @@ int main() {
     int velocity = 0;
 
     Texture2D background = LoadTexture("textures/far-buildings.png");
+    Texture2D midground = LoadTexture("textures/back-building.png");
+    Texture2D foreground = LoadTexture("textures/foreground.png");
     float bgX{};
+    float mgX{};
+    float fgX{};
 
     // Gravity (Pixels/s)/s
     const int Gravity = 2300;
@@ -96,15 +100,41 @@ int main() {
         float dT = GetFrameTime();
 
         bgX -= 20 * dT;
+        mgX -= 40 * dT;
+        fgX -= 80 * dT;
+
         if(bgX <= -background.width*9) {
           bgX = 0.0;
         }
+
+         if(mgX <= -background.width*9) {
+          bgX = 0.0;
+        }
+
+          if(fgX <= -background.width*9) {
+          bgX = 0.0;
+        }
+
+
 
         // Draw the background
         Vector2 big1Pos{bgX, 0.0f};
         DrawTextureEx(background, big1Pos, 0.0f, 9.0f, WHITE);
         Vector2 big2Pos{bgX + background.width*9, 0.0};
         DrawTextureEx(background, big2Pos, 0.0, 9.0f, WHITE);
+        
+        // Draw the midground
+        Vector2 mg1Pos{mgX, 0.0f};
+        DrawTextureEx(midground, mg1Pos, 0.0f, 9.0f, WHITE);
+        Vector2 mg2Pos{mgX + midground.width*9, 0.0f};
+        DrawTextureEx(midground, mg2Pos, 0.0f, 9.0f, WHITE);
+
+        // Draw the foreground
+        Vector2 fg1Pos{fgX, 0.0f};
+        DrawTextureEx(foreground, fg1Pos, 0.0f,  9.0f, WHITE);
+        Vector2 fg2Pos{fgX, 0.0f};
+        DrawTextureEx(foreground, fg2Pos, 0.0f, 9.0f, WHITE);
+
 
         // Ground Check
         if (isOnGround(scarfyData, WindowHeight)) {
@@ -159,6 +189,8 @@ int main() {
     UnloadTexture(scarfy);
     UnloadTexture(nebula);
     UnloadTexture(background);
+    UnloadTexture(midground);
+    UnloadTexture(foreground);
 
     CloseWindow();
 
