@@ -40,7 +40,7 @@ int main() {
     int velocity = 0;
 
     Texture2D background = LoadTexture("textures/far-buildings.png");
-    Texture2D midground = LoadTexture("textures/back-building.png");
+    Texture2D midground = LoadTexture("textures/back-buildings.png");
     Texture2D foreground = LoadTexture("textures/foreground.png");
     float bgX{};
     float mgX{};
@@ -132,7 +132,7 @@ int main() {
         // Draw the foreground
         Vector2 fg1Pos{fgX, 0.0f};
         DrawTextureEx(foreground, fg1Pos, 0.0f,  9.0f, WHITE);
-        Vector2 fg2Pos{fgX, 0.0f};
+        Vector2 fg2Pos{fgX + midground.width*9, 0.0f};
         DrawTextureEx(foreground, fg2Pos, 0.0f, 9.0f, WHITE);
 
 
@@ -172,11 +172,9 @@ int main() {
           nebulae[i] = updateAnimData(nebulae[i], dT, 7);
         }
 
-        Color color[3]{WHITE, PURPLE, ORANGE};
-
         // Draw Nebulae
         for (int i = 0; i < sizeOFNebulae; ++i) {
-            DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, color[i]);
+            DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, ORANGE);
         }
 
         // Draw Scarfy
