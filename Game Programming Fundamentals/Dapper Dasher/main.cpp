@@ -69,7 +69,7 @@ int main() {
     scarfyData.runningTime = 0.0f;
 
     // AnimData
-    const int sizeOFNebulae{100};
+    const int sizeOFNebulae{10};
     AnimData nebulae[sizeOFNebulae]{};
 
     // Initialize Nebulae
