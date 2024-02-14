@@ -88,6 +88,7 @@ int main() {
     float finishLine = nebulae[sizeOFNebulae - 1].pos.x;
 
     bool isInAir = false;
+    bool collision = false;
 
     SetTargetFPS(60);
     while (!WindowShouldClose()) {
@@ -166,9 +167,8 @@ int main() {
         }
 
         // Check collision 
-        bool collision = false;
         for (AnimData nebula : nebulae) {
-            float pad = 20;
+            float pad = 60;
             Rectangle nebRec {
                 nebula.pos.x + pad,
                 nebula.pos.y + pad, 
@@ -184,12 +184,14 @@ int main() {
 
             if (CheckCollisionRecs(nebRec, scarfyRec)) {
                 collision = true;
-                break; // Exit loop once collision is detected
             }
         }
 
         // Draw Nebulae and Scarfy if no collision
-        if (!collision) {
+        if (collision) {
+
+
+        } else {
             // Draw Nebulae
             for (int i = 0; i < sizeOFNebulae; ++i) {
                 DrawTextureRec(nebula, nebulae[i].rec, nebulae[i].pos, PURPLE);
