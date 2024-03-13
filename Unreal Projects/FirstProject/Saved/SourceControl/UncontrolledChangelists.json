@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"/Users/farhan/Documents/Unreal Projects/FirstProject/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/1/C7/ZDPFZXY9BUJFZPK3D9EZO7.uasset",
+				"/Users/farhan/Documents/Unreal Projects/FirstProject/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/3/MM/BWMT0YZNONLHRT76CU0GMH.uasset",
+				"/Users/farhan/Documents/Unreal Projects/FirstProject/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/7/W4/UYQTOR15NDO0I54DXYICA1.uasset",
+				"/Users/farhan/Documents/Unreal Projects/FirstProject/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/EQ/YG5V3G2RHNOCZ10LY087QF.uasset",
+				"/Users/farhan/Documents/Unreal Projects/FirstProject/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/7/JX/L63V3YX9QGDLM33CRC5JET.uasset"
+			]
+		}
+	]
+}
